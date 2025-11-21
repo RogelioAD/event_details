@@ -1,0 +1,47 @@
+[
+    {
+        "id": "evt-001",
+        "title": "Sunday Worship Experience",
+        "location": "Elevation Ballantyne",
+        "startTime": "2025-03-02T09:30:00Z",
+        "category": "Worship",
+        "description": "Join us for worship and a message from Pastor Steven.",
+        "isFavorite": false
+    },
+    {
+        "id": "evt-002",
+        "title": "LOVE Week Serve Event",
+        "location": "Charlotte Community Center",
+        "startTime": "2025-03-05T14: 00: 00Z",
+        "category": "Outreach",
+        "description": "Serve with our team as we partner with a local nonprofit for LOVE Week.",
+        "isFavorite": false
+    },
+    {
+        "id": "evt-003",
+        "title": "eGroups Launch Night",
+        "location": "Elevation University City",
+        "startTime": "2025-03-10T19:00:00Z",
+        "category": "Community",
+        "description": "An opportunity to join an eGroup and connect with others at your campus.",
+        "isFavorite": false
+    },
+    {
+        "id": "evt-004",
+        "title": "Youth Takeover Night",
+        "location": "Elevation Matthews",
+        "startTime": "2025-03-15T18: 30: 00Z",
+        "category": "Youth",
+        "description": "A high-energy night for our Elevation Youth with worship, games, and community.",
+        "isFavorite": false
+    },
+    {
+        "id": "evt-005",
+        "title": "Baptism Weekend",
+        "location": "Elevation Lake Norman",
+        "startTime": "2025-03-23T11:00:00Z",
+        "category": "Worship",
+        "description": "Celebrate baptism as part of our worship experiences across locations.",
+        "isFavorite": false
+    }
+]
