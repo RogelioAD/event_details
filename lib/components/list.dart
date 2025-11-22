@@ -1,34 +1,9 @@
+import 'package:event_details/components/event.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'style_text.dart';
-
-//model for organizing and calling JSON data
-class ElevationEvent {
-  final String id;
-  final String title;
-  final String location;
-  final String startTime;
-  final bool isFavorite;
-
-  ElevationEvent({
-    required this.id,
-    required this.title,
-    required this.location,
-    required this.startTime,
-    required this.isFavorite,
-  });
-
-  factory ElevationEvent.fromJson(Map<String, dynamic> json) {
-    return ElevationEvent(
-      id: json['id'] as String,
-      title: json['title'] as String,
-      location: json['location'] as String,
-      startTime: json['startTime'] as String,
-      isFavorite: json['isFavorite'] as bool,
-    );
-  }
-}
+import '../models/event_model.dart';
+import 'event_page.dart';
 
 //Widget is stateful because we would in theory add, remove, or edit event details
 class EventListWidget extends StatefulWidget {
@@ -45,7 +20,9 @@ class _EventListWidgetState extends State<EventListWidget> {
 
   Future<void> loadEvents() async {
     try {
-      final String jsonString = await rootBundle.loadString('assets/events.json');
+      final String jsonString = await rootBundle.loadString(
+        'assets/events.json',
+      );
       final List<dynamic> jsonList = jsonDecode(jsonString);
 
       setState(() {
@@ -53,7 +30,6 @@ class _EventListWidgetState extends State<EventListWidget> {
         isLoading = false;
       });
     } catch (error) {
-      print('Error loading JSON: $error');
       setState(() {
         isLoading = false;
       });
@@ -82,11 +58,16 @@ class _EventListWidgetState extends State<EventListWidget> {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: events.length,
+      //itemBuilder adds an index to each item
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          height: 100,
-          color: const Color.fromARGB(255, 0, 0, 0),
-          child: Center(   child: Center(child: StyleText(events[index].title, events[index].location, events[index].startTime)),),
+        return InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => EventPage(events[index])),
+            );
+          },
+          child: Event(events[index]),
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),

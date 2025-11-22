@@ -1,4 +1,4 @@
-import 'package:event_details/list.dart';
+import 'package:event_details/components/list.dart';
 import 'package:flutter/material.dart';
 
 
