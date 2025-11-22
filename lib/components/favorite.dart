@@ -1,25 +1,39 @@
-import 'package:event_details/models/event_model.dart';
-import 'package:flutter/widgets.dart';
+import 'package:event_details/util/event_model.dart';
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flutter/widgets.dart';
 
 class FavButton extends StatefulWidget {
-  const FavButton(this.isFavorite, this.event, {super.key});
+  const FavButton(this.event, {this.onFavoriteChanged, super.key});
 
-  final bool isFavorite;
   final ElevationEvent event;
+  final void Function(ElevationEvent updatedEvent)? onFavoriteChanged;
 
   @override
-  State<FavButton> createState() {
-    return _FavButton();
-  }
+  State<FavButton> createState() => _FavButtonState();
 }
 
-class _FavButton extends State<FavButton> {
+class _FavButtonState extends State<FavButton> {
+  late bool isFavorite;
+
+  @override
+  void initState() {
+    super.initState();
+    isFavorite = widget.event.isFavorite; // use model value
+  }
+
   @override
   Widget build(context) {
     return FavoriteButton(
-      valueChanged: (isFavorite) {
-        print('Is Favorite $isFavorite');
+      isFavorite: isFavorite,
+      valueChanged: (value) {
+        setState(() {
+          isFavorite = value;
+        });
+        // Notify parent with updated event
+        if (widget.onFavoriteChanged != null) {
+          final updatedEvent = widget.event.copyWith(isFavorite: value);
+          widget.onFavoriteChanged!(updatedEvent);
+        }
       },
     );
   }

@@ -1,11 +1,10 @@
 import 'package:event_details/components/event.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'package:event_details/util/event_model.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import '../models/event_model.dart';
+import 'dart:convert';
 import 'event_page.dart';
 
-//Widget is stateful because we would in theory add, remove, or edit event details
 class EventListWidget extends StatefulWidget {
   const EventListWidget({super.key});
   @override
@@ -17,6 +16,12 @@ class EventListWidget extends StatefulWidget {
 class _EventListWidgetState extends State<EventListWidget> {
   List<ElevationEvent> events = [];
   bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadEvents();
+  }
 
   Future<void> loadEvents() async {
     try {
@@ -34,12 +39,6 @@ class _EventListWidgetState extends State<EventListWidget> {
         isLoading = false;
       });
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loadEvents();
   }
 
   @override
@@ -67,7 +66,14 @@ class _EventListWidgetState extends State<EventListWidget> {
               MaterialPageRoute(builder: (context) => EventPage(events[index])),
             );
           },
-          child: Event(events[index]),
+          child: Event(
+            events[index],
+            onFavoriteChanged: (updatedEvent) {
+              setState(() {
+                events[index] = updatedEvent;
+              });
+            },
+          ),
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),

@@ -18,11 +18,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My App',
+      title: 'Elevation Events',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.green),
       home: Scaffold(
-        appBar: AppBar(title: Text('Load Assets Json')),
+        appBar: AppBar(title: Text('Elevation Events')),
         body: EventListWidget(),
       ),
     );
