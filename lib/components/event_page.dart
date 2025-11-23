@@ -23,7 +23,13 @@ class _EventPageState extends State<EventPage> {
   @override
   Widget build(context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 26, 15, 3),
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).maybePop(),
+          icon: const Icon(color: Colors.white, Icons.arrow_back),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -31,26 +37,54 @@ class _EventPageState extends State<EventPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               StyleText(
-                currentEvent.title,
-                currentEvent.location,
-                currentEvent.startTime,
-                description: currentEvent.description,
+                title: currentEvent.title,
+                location: currentEvent.location,
                 category: currentEvent.category,
               ),
 
-              const SizedBox(height: 50),
-
-              Text(
-                currentEvent.isFavorite
-                    ? "Added to your favorites"
-                    : "Not added to your favorites",
-                style: TextStyle(
-                  color: currentEvent.isFavorite ? Colors.green : Colors.red,
-                  fontSize: 16,
-                ),
-              ),
-
               const SizedBox(height: 20),
+
+              if (currentEvent.description.isNotEmpty)
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(83, 98, 130, 167),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    currentEvent.description,
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 214, 233, 255),
+                      fontSize: 16,
+                      height: 1.5,
+                    ),
+                  ),
+                )
+              else
+                const Text(
+                  "No information available",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              const SizedBox(height: 10),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  StyleText(startTime: currentEvent.startTime),
+
+                  Text(
+                    currentEvent.isFavorite ? "Favorited" : "Not Favorited",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      color: currentEvent.isFavorite
+                          ? Colors.orange
+                          : const Color.fromARGB(162, 248, 237, 235),
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

@@ -50,33 +50,47 @@ class _EventListWidgetState extends State<EventListWidget> {
 
     if (events.isEmpty) {
       return Center(
-        child: Text('Looks like there are no events yet. Stay tuned!'),
-      );
-    }
-
-    return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: events.length,
-      //itemBuilder adds an index to each item
-      itemBuilder: (BuildContext context, int index) {
-        return InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => EventPage(events[index])),
-            );
-          },
-          child: Event(
-            events[index],
-            onFavoriteChanged: (updatedEvent) {
-              setState(() {
-                events[index] = updatedEvent;
-              });
-            },
+          child: Text(
+            'Looks like there are no events yet. Stay tuned!',
+            style: const TextStyle(
+              color: Color.fromARGB(255, 214, 233, 255),
+              fontSize: 18,
+            ),
           ),
         );
-      },
-      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    }
+
+    return Container(
+      color: Color.fromARGB(255, 37, 20, 2),
+      child: ListView.separated(
+        padding: const EdgeInsets.all(0),
+        itemCount: events.length,
+        //itemBuilder adds an index to each item
+        itemBuilder: (BuildContext context, int index) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EventPage(events[index]),
+                ),
+              );
+            },
+            child: Event(
+              events[index],
+              onFavoriteChanged: (updatedEvent) {
+                setState(() {
+                  events[index] = updatedEvent;
+                });
+              },
+            ),
+          );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(
+          color: Color.fromARGB(255, 214, 233, 255),
+          thickness: 1.0,
+        ),
+      ),
     );
   }
 }

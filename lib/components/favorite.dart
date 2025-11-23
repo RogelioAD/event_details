@@ -24,6 +24,8 @@ class _FavButtonState extends State<FavButton> {
   @override
   Widget build(context) {
     return FavoriteButton(
+      iconColor: const Color.fromARGB(255, 250, 129, 16),
+      iconSize: 40,
       isFavorite: isFavorite,
       valueChanged: (value) {
         setState(() {
